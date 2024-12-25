@@ -17,6 +17,7 @@ const RegisterView = () => {
   const {
     register,
     watch,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterForm>({
@@ -28,10 +29,11 @@ const RegisterView = () => {
   const handleRegister = async (formData: RegisterForm) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:4000/auth/register",
+        `${import.meta.env.VITE_API_URL}/auth/register`,
         formData
       );
       console.log(data);
+      reset();
     } catch (error) {
       if (isAxiosError(error) && error.response) {
         console.log(error.response.data.error);
