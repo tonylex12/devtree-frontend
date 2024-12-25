@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios, { isAxiosError } from "axios";
+import { toast } from "sonner";
 import ErrorMessage from "../components/ErrorMessage";
 
 import type { RegisterForm } from "../types";
@@ -32,11 +33,11 @@ const RegisterView = () => {
         `${import.meta.env.VITE_API_URL}/auth/register`,
         formData
       );
-      console.log(data);
+      toast.success(data.message);
       reset();
     } catch (error) {
       if (isAxiosError(error) && error.response) {
-        console.log(error.response.data.error);
+        toast.error(error.response.data.error);
       }
     }
   };
