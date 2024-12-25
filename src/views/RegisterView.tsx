@@ -20,6 +20,8 @@ const RegisterView = () => {
     defaultValues: initialValues,
   });
 
+  const password = watch("password");
+
   const handleRegister = () => {
     console.log("Register");
   };
@@ -43,6 +45,10 @@ const RegisterView = () => {
             className="bg-slate-100 border-none p-3 rounded-lg placeholder-slate-400"
             {...register("name", {
               required: "El nombre es requerido",
+              minLength: {
+                value: 3,
+                message: "El nombre debe tener al menos 3 caracteres",
+              },
             })}
           />
           {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
@@ -58,6 +64,10 @@ const RegisterView = () => {
             className="bg-slate-100 border-none p-3 rounded-lg placeholder-slate-400"
             {...register("email", {
               required: "El email es requerido",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "El email no es valido",
+              },
             })}
           />
           {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
@@ -119,11 +129,8 @@ const RegisterView = () => {
                 value: 8,
                 message: "El password debe tener al menos 8 caracteres",
               },
-              validate: (value) => {
-                if (value !== watch("password")) {
-                  return "Los passwords no coinciden";
-                }
-              },
+              validate: (value) =>
+                value === password || "Las passwords no son iguales",
             })}
           />
           {errors.password_confirmation && (

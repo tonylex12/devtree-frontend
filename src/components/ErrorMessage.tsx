@@ -3,6 +3,10 @@ type ErrorMessageProps = {
 };
 
 const ErrorMessage = ({ children }: ErrorMessageProps) => {
-  return <p className="text-red-500 text-sm">{children}</p>;
+  return (
+    <p className="bg-red-100 p-2 text-red-500 text-sm uppercase rounded">
+      {children}
+    </p>
+  );
 };
 export default ErrorMessage;
