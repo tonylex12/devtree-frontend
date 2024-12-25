@@ -1,6 +1,14 @@
+import { Link } from "react-router-dom";
+
 const LoginView = () => {
   return (
-    <div>LoginView</div>
-  )
-}
-export default LoginView
+    <>
+      <nav>
+        <Link to="/auth/register" className="text-white">
+          No tienes una cuenta? Registrate
+        </Link>
+      </nav>
+    </>
+  );
+};
+export default LoginView;
