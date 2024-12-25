@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import axios, { isAxiosError } from "axios";
 import ErrorMessage from "../components/ErrorMessage";
+
+import type { RegisterForm } from "../types";
 
 const RegisterView = () => {
   const initialValues = {
@@ -16,14 +19,24 @@ const RegisterView = () => {
     watch,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<RegisterForm>({
     defaultValues: initialValues,
   });
 
   const password = watch("password");
 
-  const handleRegister = () => {
-    console.log("Register");
+  const handleRegister = async (formData: RegisterForm) => {
+    try {
+      const { data } = await axios.post(
+        "http://localhost:4000/auth/register",
+        formData
+      );
+      console.log(data);
+    } catch (error) {
+      if (isAxiosError(error) && error.response) {
+        console.log(error.response.data.error);
+      }
+    }
   };
 
   return (
@@ -119,7 +132,7 @@ const RegisterView = () => {
             Repetir Password
           </label>
           <input
-            id="password"
+            id="password-confirmation"
             type="password"
             placeholder="Repetir Password"
             className="bg-slate-100 border-none p-3 rounded-lg placeholder-slate-400"
