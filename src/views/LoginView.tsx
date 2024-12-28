@@ -15,7 +15,7 @@ const LoginView = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }, 
   } = useForm<LoginForm>({
     defaultValues: initialValues,
   });
