@@ -17,6 +17,7 @@ const AppLayout = () => {
   if (isError) return <Navigate to="/auth/login" />;
 
   if (data) return <DevTree data={data} />;
+
 };
 
 export default AppLayout;
