@@ -7,6 +7,13 @@ export type User = {
   image: string;
 };
 
+export type SocialNetwork = {
+  id: number;
+  name: string;
+  url: string;
+  enabled: boolean;
+};
+
 export type UpdateResponse = {
   message: string;
 };
@@ -21,3 +28,5 @@ export type LoginForm = Pick<User, "email"> & {
 };
 
 export type ProfileForm = Pick<User, "handle" | "description">;
+
+export type DevTreeLink = Pick<SocialNetwork, "name" | "url" | "enabled">;
