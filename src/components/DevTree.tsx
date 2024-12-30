@@ -42,7 +42,21 @@ const DevTree = ({ data }: DevTreeProps) => {
             <div className="flex-1 ">
               <Outlet />
             </div>
-            <div className="w-full md:w-96 bg-slate-800 px-5 py-10 space-y-6"></div>
+            <div className="w-full md:w-96 bg-slate-800 px-5 py-10 space-y-6">
+              <p className="text-white text-4xl font-bold text-center">
+                {data.handle}
+              </p>
+              {data.image && (
+                <img
+                  src={data.image}
+                  alt="Imagen de Perfil"
+                  className="mx-auto max-w-[250px]"
+                />
+              )}
+              <p className="text-center text-lg font-bold text-white">
+                {data.description}
+              </p>
+            </div>
           </div>
         </main>
       </div>
