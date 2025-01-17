@@ -1,4 +1,5 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
 import { social } from "../data/social";
 import DevTreeInput from "../components/DevTreeInput";
 import { isValidUrl } from "../utils";
@@ -32,6 +33,11 @@ const LinkTreeView = () => {
       return item;
     });
     setDevTreeLinks(updatedLinks);
+
+    queryClient.setQueryData(["user"], (prevData: User) => ({
+      ...prevData,
+      links: JSON.stringify(updatedLinks),
+    }));
   };
 
   const handleEnableLink = (name: string) => {
@@ -52,6 +58,20 @@ const LinkTreeView = () => {
       links: JSON.stringify(updatedLinks),
     }));
   };
+
+  useEffect(() => {
+    const updatedData = devTreeLinks.map((item) => {
+      const userLink = JSON.parse(user.links).find(
+        (link: { name: string }) => link.name === item.name
+      );
+
+      return userLink
+        ? { ...item, url: userLink.url, enabled: userLink.enabled }
+        : item;
+    });
+
+    setDevTreeLinks(updatedData);
+  }, []);
 
   return (
     <div className="space-y-5">
